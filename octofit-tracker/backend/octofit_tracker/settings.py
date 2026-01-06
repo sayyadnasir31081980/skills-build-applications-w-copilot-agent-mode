@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'dj_rest_auth',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -90,8 +90,11 @@ WSGI_APPLICATION = 'octofit_tracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'octofit_db',
+        'CLIENT': {
+            'host': 'mongodb://localhost:27017',
+        }
     }
 }
 
@@ -137,14 +140,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Sites framework (required by django-allauth)
-SITE_ID = 1
+
 
 # Development convenience
 ALLOWED_HOSTS = ['*']
 
 # CORS (allow all origins for development)
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']
+CORS_ALLOW_METHODS = ['*']
 
 # Django REST framework basic settings
 REST_FRAMEWORK = {
@@ -154,13 +159,4 @@ REST_FRAMEWORK = {
 }
 
 # If you want to use MongoDB via djongo, uncomment and configure the block below
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'octofit_tracker',
-#         # 'ENFORCE_SCHEMA': False,
-#         # 'CLIENT': {
-#         #     'host': 'mongodb://localhost:27017',
-#         # }
-#     }
-# }
+
